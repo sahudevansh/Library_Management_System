@@ -1,0 +1,114 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <div id="content" class="content content-full-width">
+            <!-- begin profile -->
+            <div class="profile">
+               <div class="profile-header">
+                  <!-- BEGIN profile-header-cover -->
+                  <div class="profile-header-cover"></div>
+                  <!-- END profile-header-cover -->
+                  <!-- BEGIN profile-header-content -->
+                  <div class="profile-header-content">
+                     <!-- BEGIN profile-header-img 
+                     <div class="profile-header-img">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                     </div>
+                      -->
+                     <!-- BEGIN profile-header-info -->
+                     <div class="profile-header-info">
+                     {% for detail in details %}
+                        <h2 class="m-t-10 m-b-5">{{detail.name}}</h3>
+                        <p class="m-b-10">{{detail.user_type}}</p>
+                         {% endfor %}
+                     </div>
+                     <!-- END profile-header-info -->
+                  </div>
+                  <!-- END profile-header-content -->
+                  <!-- BEGIN profile-header-tab -->
+                  <ul class="profile-header-tab nav nav-tabs">
+                     
+                     <li class="nav-item"><h4 style= "color: black;"><a href="/student_detail" class="nav-link" data-toggle="tab">ABOUT</a></h4></li>
+                     <li class="nav-item"><h4 style= "color: black;"><a href="/friends" class="nav-link active show" data-toggle="tab">FRIENDS</a></h4></li>
+                  </ul>
+                  <!-- END profile-header-tab -->
+               </div>
+            </div>
+            <!-- end profile -->
+            <!-- begin profile-content -->
+            <div class="profile-content">
+               <!-- begin tab-content -->
+               <div class="tab-content p-0">
+                  <!-- begin #profile-friends tab -->
+                  <div class="tab-pane fade in active show" id="profile-friends">
+                     <h4 class="m-t-0 m-b-20">Friend List (14)</h4>
+                     <!-- begin row -->
+                     <div class="row row-space-2">
+                        <!-- begin col-6 -->
+                        {% if friends!='NULL'%}
+                        {% for friend in friends %}
+                        <div class="col-md-6 m-b-2">
+                           <div class="p-10 bg-white">
+                              <div class="media media-xs overflow-visible">
+                                 <!--<a class="media-left" href="javascript:;">
+                                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
+                                 </a>-->
+                                 <form action="/friends", method="POST">
+                                 <div class="media-body valign-middle">
+                                    
+                    <b style="width: 250px; color: white; text-align: center; background-color:darkslategrey; padding: 15px 100px 15px 100px;"> {{friend["name"]}}</b>
+               
+                                   <input type = "hidden" name = "friendname" value = {{friend["name"]}} />
+                                    <input type = "hidden" name = "friendid" value = {{friend['user_id']}} />
+                  <p style ="pading: 3px;"><button style=" background-color: black; border-radius: 2px; color: white; padding: 10px 30px; text-align: center; text-decoration: none;
+  
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;" type = "submit"> Go to shelf</button></p>
+                                    
+                                 </div>
+                                 </form>
+                                 <div class="media-body valign-middle text-right overflow-visible">
+                                    <div class="btn-group dropdown">
+                                       <a href="javascript:;" class="btn btn-default">Friends</a>
+                                       <a href="javascript:;" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false"></a>
+                                       <ul class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(101px, 34px, 0px);">
+                                          <li><a href="javascript:;">Action 1</a></li>
+                                          <li><a href="javascript:;">Action 2</a></li>
+                                          <li><a href="javascript:;">Action 3</a></li>
+                                          <li class="divider"></li>
+                                          <li><a href="javascript:;">Action 4</a></li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        {%endfor%}
+                        {% else %}
+                        <div class="media-body valign-middle">
+                           <b class="text-inverse">You dont have any friends!</b>
+                        </div>
+                        {% endif %}                       
+                        <!-- end col-6 -->
+                    </div>
+                    <form action="/searchfriend" method="POST">
+                     <input type="text" id = "livebox" name= "friendname">
+                        <p id = "datalist"></p>
+                    </form>
+                     <!-- end row -->
+                  </div>
+                  <!-- end #profile-friends tab -->
+               </div>
+               <!-- end tab-content -->
+            </div>
+            <!-- end profile-content -->
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
